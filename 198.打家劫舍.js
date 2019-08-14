@@ -39,6 +39,20 @@
  * @return {number}
  */
 var rob = function(nums) {
-    
+  const len = nums.length
+  if (len === 0) return 0
+  if (len === 1) return nums[0]
+
+  let pre1 = 0
+  let pre2 = nums[0]
+  let i    
+  for (i = 1; i < len; i++) {
+    const num = nums[i]
+    const temp = pre2
+    pre2 = Math.max(num + pre1, temp)
+    pre1 = temp
+  }
+
+  return pre2
 };
 
