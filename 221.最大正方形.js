@@ -32,6 +32,44 @@
  * @return {number}
  */
 var maximalSquare = function(matrix) {
-    
-};
+  if (matrix.length === 0) return 0
+  const m = matrix[0].length
+  const n = matrix.length
+  const cache = new Array(n).fill(0).map(_ => new Array(m).fill(0))
+
+  cache[0][0] = +matrix[0][0]
+  let i
+  let j
+  let result = cache[0][0]
+  for (i = 1; i < m; i++) {
+    const num = matrix[0][i]
+    cache[0][i] = +num
+    if (num === '1') {
+      result = 1
+    }
+  }
+
+  for (i = 1; i < n; i++) {
+    const num = matrix[i][0]
+    cache[i][0] = +num
+    if (num === '1') {
+      result = 1
+    }
+  }
+
+  for (i = 1; i < n; i++) {
+    for (j = 1; j < m; j++) {
+      if (matrix[i][j] === '1') {
+        cache[i][j] = Math.min(
+          cache[i - 1][j - 1],
+          cache[i][j - 1],
+          cache[i - 1][j]
+        ) + 1
+      }
+      result = Math.max(result, cache[i][j])
+    }
+  }
+
+  return result * result
+}
 
