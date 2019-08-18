@@ -50,23 +50,6 @@
  * @return {boolean}
  */
 var isSymmetric = function(root) {
-  const arr = []
-  const travel = node => {
-    arr.push(node.val)
-    if (!node.left && !node.right) return
-    if (node.left) {
-      travel(node.left)
-    } else {
-      arr.push(null)
-    }
-    if (node.right) {
-      travel(node.right)
-    } else {
-      arr.push(null)
-    }
-  }
 
-  travel(root)
-  console.log(arr)
-};
+}
 
