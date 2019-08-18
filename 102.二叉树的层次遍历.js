@@ -71,3 +71,24 @@ var levelOrder = function(root) {
   return cache.map(row => row.map(t => t.val))
 }
 
+var levelOrder1 = function(root) {
+  const result = []
+  if (!root) {
+    return result
+  }
+
+  const travel = (t, level) => {
+    if (result.length === level) {
+      result.push([])
+    }
+    result[level].push(t.val)
+
+    if (t.left) travel(t.left, level + 1)
+    if (t.right) travel(t.right, level + 1)
+  }
+
+  travel(root, 0)
+
+  return result
+}
+
