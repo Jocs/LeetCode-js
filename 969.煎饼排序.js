@@ -57,6 +57,19 @@
  * @return {number[]}
  */
 var pancakeSort = function(A) {
-    
+  const len = A.length
+  let i
+  const res = []
+
+  for (i = 0; i < len; i++) {
+    const maxNum = Math.max(...A.slice(0, len - i))
+    const index = A.indexOf(maxNum)
+    res.push(index + 1)
+    A = A.slice(0, index + 1).reverse().concat(A.slice(index + 1))
+    res.push(len - i)
+    A = A.slice(0, len - i).reverse().concat(A.slice(len - i))
+  }
+
+  return res
 };
 
