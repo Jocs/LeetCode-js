@@ -43,6 +43,17 @@
  * @return {number}
  */
 var findDuplicate = function(nums) {
-    
+  const len = nums.length
+  let i  
+  let j
+  for (i = 0; i < len; i++) {
+    const num = nums[i]
+    for (j = i + 1; j < len; j++) {
+      const num2 = nums[j]
+      if (num === num2) {
+        return num
+      }
+    }
+  }
 };
 
