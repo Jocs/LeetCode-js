@@ -40,11 +40,45 @@
  * 
  * 
  */
+const isStr = s => {
+  const len = s.length
+  let i = 0
+  let j = len - 1
+
+  while (i < j) {
+    const c1 = s[i]
+    const c2 = s[j]
+    if (c1 !== c2) {
+      return false
+    } else {
+      i++
+      j--
+    }
+  }
+
+  return true
+}
+const sum = list => list.reduce((acc, l) => acc + l, 0)
 /**
  * @param {string} s
  * @return {number}
  */
 var countSubstrings = function(s) {
-    
-};
+  const res = []
+  const len = s.length
+  let i
+  let j
+
+  for (i = 1; i <= len; i++) {
+    let count = 0
+    for (j = 0; j < i; j++) {
+      const subs = s.substring(j, i)
+      if (isStr(subs)) count++
+    }
+
+    res.push(count)
+  }
+
+  return sum(res)
+}
 
