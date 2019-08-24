@@ -36,7 +36,53 @@
  * @param {number} k
  * @return {number}
  */
-var findKthLargest = function(nums, k) {
+var findKthLargest1 = function(nums, k) {
   return nums.sort((a, b) => a > b ? -1 : 1)[k - 1]
-};
+}
 
+const swap = (nums, i, j) => {
+  const temp = nums[j]
+  nums[j] = nums[i]
+  nums[i] = temp
+}
+
+const partition = (nums, left, right) => {
+  const num = nums[left]
+  let i = left + 1
+  let j = right
+
+  while (i <= j) {
+    while (i <= j && nums[i] <= num) {
+      i++
+    }
+    while (i <= j && nums[j] >= num) {
+      j--
+    }
+    if (i < j) {
+      swap(nums, i, j)
+    }
+  }
+
+  swap(nums, left, j)
+
+  return j  
+}
+
+var findKthLargest = function(nums, k) {
+  const len = nums.length
+  let left = 0
+  let right = len - 1
+
+  while (left < right) {
+    const index = partition(nums, left, right)
+    if (len - index > k) {
+      left = index + 1
+    } else if (len - index < k) {
+      right = index - 1
+    } else {
+      left = right = index
+    }
+  }
+  
+  return nums[left]
+}
