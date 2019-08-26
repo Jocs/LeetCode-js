@@ -70,7 +70,24 @@ const maxSub = (nums, left, right) => {
  * @param {number[]} nums
  * @return {number}
  */
-var maxSubArray = function(nums) {
+var maxSubArray1 = function(nums) {
   return maxSub(nums, 0, nums.length - 1)
 }
 
+
+// DP
+var maxSubArray = function(nums) {
+  const len = nums.length
+  let i
+  let max = nums[0]
+  let thisSum = nums[0]
+  for (i = 1; i < len; i++) {
+    const num = nums[i]
+    thisSum = thisSum > 0 ? thisSum + num : num
+    if (thisSum > max) {
+      max = thisSum
+    }
+  }
+
+  return max
+}
