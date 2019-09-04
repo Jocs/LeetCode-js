@@ -59,21 +59,7 @@
  * @return {void} Do not return anything, modify node in-place instead.
  */
 var deleteNode = function(node, value) {
-  let preNode = null
-  while (node.next) {
-    if (node.val === value) {
-      if (preNode) {
-        preNode.next = node.next
-      }
-      
-      const temp = node.next
-      node.next = null
-      node = temp
-      break
-    } else {
-      preNode = node
-      node = node.next
-    }
-  }
+  node.val = node.next.val
+  node.next = node.next.next
 }
 

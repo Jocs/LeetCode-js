@@ -61,6 +61,32 @@
  * @return {TreeNode}
  */
 var lowestCommonAncestor = function(root, p, q) {
-    
-};
+  let smallNode
+  let bigNode
+  if (p.val > q.val) {
+    smallNode = q
+    bigNode = p
+  } else {
+    smallNode = p
+    bigNode = q
+  }
+
+  if (smallNode.val === root.val) {
+    return smallNode
+  } else if (bigNode.val === root.val) {
+    return bigNode
+  }
+
+  if (smallNode.val < root.val && bigNode.val > root.val) {
+    return root
+  } else if (smallNode.val < root.val && bigNode.val < root.val) {
+    if (root.left) {
+      return lowestCommonAncestor(root.left, p, q)
+    }
+  } else {
+    if (root.right) {
+      return lowestCommonAncestor(root.right, p, q)
+    }
+  }
+}
 
