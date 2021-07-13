@@ -57,29 +57,23 @@
  *     this.left = this.right = null;
  * }
  */
-const fromTreeToList = tree => {
-  const result = []
-  const travel = tree => {
-    if (tree instanceof TreeNode) {
-      result.push(tree.val)
-      travel(tree.left)
-      travel(tree.right)
-    } else {
-      result.push(tree)
-    }
-  }
 
-  return result
-}
 /**
  * @param {TreeNode} p
  * @param {TreeNode} q
  * @return {boolean}
  */
 var isSameTree = function(p, q) {
-  const pl = fromTreeToList(p)
-  const ql = fromTreeToList(q)
+  if (p && !q || !p && q) {
+    return false
+  }
 
-  return pl.map(i => i + '').join('') === ql.map(i => i + '').join('')
+  if (!p && !q) {
+    return true
+  }
+
+  if (p && q) {
+    return p.val === q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+  }
 };
 

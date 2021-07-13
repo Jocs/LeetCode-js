@@ -45,11 +45,42 @@
  *     this.left = this.right = null;
  * }
  */
+var isSameTree = function(p, q) {
+  if (p && !q || !p && q) {
+    return false
+  }
+
+  if (!p && !q) {
+    return true
+  }
+
+  if (p && q) {
+    return p.val === q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+  }
+};
+
+const reverseTree = function (p) {
+  const temp = p.left
+  p.left = p.right
+  p.right = temp
+
+  if (p.left) {
+    p.left = reverseTree(p.left)
+  }
+
+  if (p.right) {
+    p.right = reverseTree(p.right)
+  }
+
+  return p
+}
 /**
  * @param {TreeNode} root
  * @return {boolean}
  */
 var isSymmetric = function(root) {
-
+  const reversedTree = reverseTree(root)
+  console.log(reversedTree)
+  return isSameTree(reversedTree, root)
 }
 

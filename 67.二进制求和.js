@@ -34,6 +34,25 @@
  * @return {string}
  */
 var addBinary = function(a, b) {
-  return (parseInt(a, 2) + parseInt(b, 2)).toString(2)
+  const asplited = a.split('').reverse()
+  const bsplited = b.split('').reverse()
+  const len = Math.max(asplited.length, bsplited.length)
+  const result = []
+  let i
+  let step = 0
+  for (i = 0; i < len; i++) {
+    const num1 = asplited[i] ? +asplited[i] : 0
+    const num2 = bsplited[i] ? +bsplited[i] : 0
+    const sum = num1 + num2 + step
+
+    result.push(sum % 2)
+    step = sum > 1 ? 1 : 0
+  }
+
+  if (step !== 0) {
+    result.push(step)
+  }
+
+  return result.reverse().join('')
 };
 
