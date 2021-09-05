@@ -42,7 +42,28 @@
  * @param {TreeNode} root
  * @return {number}
  */
+const getTreeHeight = node => {
+  if (!node.left && !node.right) return 0
+  return 1 + Math.max(node.left ? getTreeHeight(node.left) : 0, node.right ? getTreeHeight(node.right) : 0)
+}
+
 var diameterOfBinaryTree = function(root) {
-    
+  let result = -Infinity
+  const travel = node => {
+    let len = 0
+    if (node.left) {
+      len += 1 + getTreeHeight(node.left)
+    }
+    if (node.right) {
+      len += 1 + getTreeHeight(node.right)
+    }
+    result = Math.max(result, len)
+    node.left && travel(node.left)
+    node.right && travel(node.right)
+  }
+
+  travel(root)
+
+  return result
 };
 
