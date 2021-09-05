@@ -83,7 +83,7 @@ class TreeNode {
  * @param {number} n
  * @return {string[]}
  */
-var generateParenthesis = function(n) {
+var generateParenthesis1 = function(n) {
   const root = new TreeNode('(')
 
   const travel = node => {
@@ -113,3 +113,31 @@ var generateParenthesis = function(n) {
   return root.generateArray().filter(i => i.length === 2 * n)
 };
 
+// Methods: 2
+var generateParenthesis = function (n) {
+  const stack = ['(']
+  const result = []
+
+  const travel = (st, open, close, path) => {
+    if (open === n && close === n) {
+      if (stack.length === 0)
+        result.push(path)
+      return
+    }
+    if (open < n) {
+      st.push('(')
+      travel(st, open + 1, close, path + '(')
+      st.pop()
+    }
+    if (close < n) {
+      if (st[st.length - 1] === '(') {
+        const temp = st.pop()
+        travel(st, open, close + 1, path + ')')
+        // st.push(temp)
+      }
+    }
+  }
+  travel(stack, 1, 0, '(')
+
+  return result
+}

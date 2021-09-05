@@ -53,18 +53,41 @@
  * @param {number} numRows
  * @return {string}
  */
-var convert = function(s, numRows) {
-  const hash = []
-  const sa = s.split('')
-  for (let i = 0; i < sa.length; i++) {
-    const mod = i % (numRows + 1)
-    if (!hash[mod]) {
-      hash[mod] = sa[i]
+var convert = function (s, numRows) {
+  if (numRows === 1)
+    return s
+  const arr = [...new Array(numRows)].map(_ => '')
+  const len = s.length
+  let isArrowDown = true
+
+  const getRowIndex = x => {
+    if (isArrowDown) {
+      if (x + 1 < numRows) {
+        return x + 1
+      } else {
+        isArrowDown = false
+        return x - 1
+      }
     } else {
-      hash[mod] += sa[i]
+      if (x === 0) {
+        isArrowDown = true
+        return x + 1
+      } else {
+        return x - 1
+      }
     }
   }
-  console.log(hash)
+  let index = 0
+  let start = 0
+
+  while (index < len) {
+    const char = s[index]
+    arr[start] += char
+    start = getRowIndex(start)
+    index++
+  }
+
+  return arr.reduce((acc, r) => acc + r, '')
 };
 // @lc code=end
 

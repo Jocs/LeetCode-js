@@ -38,33 +38,38 @@
  * 
  * 
  */
-const noDuplicate = s => {
-  return new Set(s.split('')).size === s.length
-}
 /**
  * @param {string} s
  * @return {number}
  */
 var lengthOfLongestSubstring = function(s) {
-  const len = s.length
-  let i
-  let j
+  if (s === '')
+    return 0
+  let start = 0
+  let end = 0
+  let len = s.length
   let result = 0
+  const set = new Set()
 
-  for (i = 0; i < len; i++) {
-    for (j = i + 1; j < len + 1; j++) {
-      const subS = s.substring(i, j)
-      if (noDuplicate(subS)) {
-        const l = subS.length
-
-        if (l > result) {
-          result = l
-        }
-      } else {
-        break
-      }
+  while (start < len && end < len && start <= end) {
+    let endChar = s.charAt(end)
+    while (!set.has(endChar) && end < len) {
+      set.add(endChar)
+      endChar = s.charAt(++end)
     }
+
+    result = Math.max(result, end - start)
+
+    let startChar = s.charAt(start)
+    while (startChar !== endChar && start < len) {
+      set.delete(startChar)
+      startChar = s.charAt(++start)
+    }
+
+    start++
+    end++
   }
+  set.clear()
 
   return result
 };

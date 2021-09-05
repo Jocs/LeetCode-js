@@ -32,6 +32,12 @@
  * 
  */
 
+// const makeChange = (arr, num) => {
+//   if (arr.includes(num)) return 1
+
+//   return Math.min(...arr.filter(a => num - a >= 0).map(a => 1 + makeChange(arr, num - a)))
+// }
+
 /**
  * @param {number[]} coins
  * @param {number} amount

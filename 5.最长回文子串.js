@@ -33,7 +33,43 @@
  * @param {string} s
  * @return {string}
  */
+// Answer 1
 var longestPalindrome = function(s) {
-    
+	let left = 0
+	let longestLen = 1
+	const len = s.length
+
+	const check = index => {
+		const char = s[index]
+		let l = index
+		let r = index
+		while (l >= 0 && r < len && s[l] === s[r]) {
+			l--
+			r++
+		}
+		if (r - l - 1 > longestLen) {
+			longestLen = r - l - 1
+			left = l + 1
+		}
+		const nextChar = s[index + 1]
+		if (char === nextChar) {
+			let l = index
+			let r = index + 1
+			while (l >= 0 && r < len && s[l] === s[r]) {
+				l--
+				r++
+			}
+			if (r - l - 1 > longestLen) {
+				longestLen = r - l - 1
+				left = l + 1
+			}
+		}
+	}
+
+	for (let i = 0; i < len; i++) {
+		check(i)
+	}
+
+	return s.substr(left, longestLen)
 };
 

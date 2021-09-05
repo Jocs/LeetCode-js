@@ -60,11 +60,25 @@
  *     this.left = this.right = null;
  * }
  */
+const getNodeHeight = node => {
+  if (!node)
+    return 0
+
+  if (!node.left && !node.right)
+    return 1
+
+  return 1 + Math.max(getNodeHeight(node.left), getNodeHeight(node.right))
+}
 /**
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isBalanced = function(root) {
+var isBalanced = function (root) {
+  if (!root) return true
+  const leftHeight = getNodeHeight(root.left)
+  const rightHeight = getNodeHeight(root.right)
+
+  return Math.abs(leftHeight - rightHeight) <= 1 && isBalanced(root.left) && isBalanced(root.right)
 };
 // @lc code=end
 

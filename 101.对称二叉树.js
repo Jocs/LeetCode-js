@@ -45,42 +45,32 @@
  *     this.left = this.right = null;
  * }
  */
-var isSameTree = function(p, q) {
-  if (p && !q || !p && q) {
-    return false
-  }
-
-  if (!p && !q) {
-    return true
-  }
-
-  if (p && q) {
-    return p.val === q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
-  }
-};
-
-const reverseTree = function (p) {
-  const temp = p.left
-  p.left = p.right
-  p.right = temp
-
-  if (p.left) {
-    p.left = reverseTree(p.left)
-  }
-
-  if (p.right) {
-    p.right = reverseTree(p.right)
-  }
-
-  return p
-}
 /**
  * @param {TreeNode} root
  * @return {boolean}
  */
 var isSymmetric = function(root) {
-  const reversedTree = reverseTree(root)
-  console.log(reversedTree)
-  return isSameTree(reversedTree, root)
+  const res1 = []
+  const res2 = []
+  let stack = [root]
+  while (stack.length) {
+    const node = stack.pop()
+    res1.push(node ? node.val : 'null')
+    if (node) {
+      stack.push(node.left)
+      stack.push(node.right)
+    }
+  }
+  stack = [root]
+  while (stack.length) {
+    const node = stack.pop()
+    res2.push(node ? node.val : 'null')
+    if (node) {
+      stack.push(node.right)
+      stack.push(node.left)
+    }
+  }
+
+  return res1.every((n, i) => n === res2[i])
 }
 
