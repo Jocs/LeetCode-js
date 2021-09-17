@@ -35,21 +35,24 @@
  * @return {ListNode}
  */
 var removeElements = function(head, val) {
+  let newHead = null
   let pre = null
-  let point = head
+  let node = head
 
-  while (point) {
-    if (point.val === val) {
+  while (node) {
+    if (node.val === val) {
       if (pre) {
-        pre.next = point.next
+        pre.next = node.next
       }
-      point = point.next
     } else {
-      pre = point
-      point = point.next
+      if (!newHead) {
+        newHead = node
+      }
+      pre = node
     }
+    node = node.next
   }
 
-  console.log(head)
+  return newHead
 };
 

@@ -56,6 +56,31 @@
  * @return {ListNode}
  */
 var insertionSortList = function(head) {
-    
+  if (!head || !head.next)
+    return head
+  let newHead = head
+  let node = head.next
+  newHead.next = null
+
+  while (node) {
+    const next = node.next
+    if (node.val < newHead.val) {
+      node.next = newHead
+      newHead = node
+    } else {
+      let n = newHead
+      let pre = null
+      while (n && n.val <= node.val) {
+        pre = n
+        n = n.next
+      }
+      const temp = pre.next
+      pre.next = node
+      node.next = temp
+    }
+    node = next
+  }
+
+  return newHead
 };
 
